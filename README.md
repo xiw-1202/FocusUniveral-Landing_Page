@@ -2,6 +2,10 @@
 
 A modern, responsive landing page for SwiftReport - a fictional financial reporting tool that promises to deliver comprehensive financial reports in just 10 minutes.
 
+## 🌐 Live Demo
+
+**[View Live Demo](https://xiw-1202.github.io/FocusUniveral-Landing_Page/)**
+
 ## 🚀 Features
 
 - **Responsive Design**: Fully responsive layout that works seamlessly on desktop, tablet, and mobile devices
@@ -13,10 +17,14 @@ A modern, responsive landing page for SwiftReport - a fictional financial report
 
 ```
 FocusUniveral-Landing_Page/
-├── index.html          # Main landing page
-├── styles.css          # External CSS styles
-├── script.js           # JavaScript functionality
-└── README.md           # Project documentation
+├── index.html                 # Main landing page
+├── assets/                    # Organized assets directory
+│   ├── css/                   # CSS stylesheets
+│   │   └── styles.css         # Main stylesheet
+│   ├── js/                    # JavaScript files
+│   │   └── script.js          # Main JavaScript functionality
+│   └── images/                # Image assets (for future use)
+└── README.md                  # Project documentation
 ```
 
 ## 🎨 Design Elements
@@ -92,7 +100,11 @@ FocusUniveral-Landing_Page/
 
 ## 🚀 Deployment
 
-To deploy this landing page:
+This project is live on GitHub Pages at:
+
+**[https://xiw-1202.github.io/FocusUniveral-Landing_Page/](https://xiw-1202.github.io/FocusUniveral-Landing_Page/)**
+
+To deploy this landing page locally:
 
 1. Clone the repository
 ```bash
@@ -101,8 +113,7 @@ git clone https://github.com/xiw-1202/FocusUniveral-Landing_Page.git
 
 2. Open `index.html` in a web browser
 
-Or deploy to any static hosting service like:
-- GitHub Pages
+Alternatively, you can deploy to any static hosting service like:
 - Netlify
 - Vercel
 - AWS S3
