@@ -82,6 +82,102 @@ function createParticles() {
 // Initialize particles
 createParticles();
 
+// Animate brand logos on scroll
+function animateOnScroll() {
+    // Get all sections that should be animated
+    const sections = document.querySelectorAll('.trusted-brands, .tech-stack, .features, .contact');
+    
+    sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        // If section is in viewport
+        if (sectionTop < windowHeight * 0.8) {
+            section.classList.add('visible');
+            
+            // If it's the brands section, animate each logo
+            if (section.classList.contains('trusted-brands')) {
+                const logos = section.querySelectorAll('.brand-logo');
+                logos.forEach((logo, index) => {
+                    setTimeout(() => {
+                        logo.classList.add('visible');
+                    }, index * 100); // Stagger animation
+                });
+            }
+            
+            // If it's the tech section, animate each tech item
+            if (section.classList.contains('tech-stack')) {
+                const techItems = section.querySelectorAll('.tech-item');
+                techItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('visible');
+                    }, index * 100); // Stagger animation
+                });
+            }
+        }
+    });
+}
+
+// Call animation function on scroll
+window.addEventListener('scroll', animateOnScroll);
+// Call it once on page load to animate elements already in view
+window.addEventListener('load', animateOnScroll);
+
+// Counter animation for statistics
+function animateCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    const statsSection = document.querySelector('.statistics');
+    
+    if (!statsSection) return;
+    
+    let animated = false;
+    
+    function startCounting() {
+        const sectionTop = statsSection.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        // If section is in viewport and not already animated
+        if (sectionTop < windowHeight * 0.8 && !animated) {
+            animated = true;
+            
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000; // 2 seconds duration
+                const startTime = performance.now();
+                
+                function updateCounter(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    const progress = Math.min(elapsedTime / duration, 1);
+                    
+                    // Use easeOutExpo function for smoother animation
+                    const easedProgress = 1 - Math.pow(1 - progress, 3);
+                    
+                    // Calculate current count
+                    let currentCount = Math.floor(easedProgress * target);
+                    
+                    // Format number with commas for thousands
+                    counter.textContent = currentCount.toLocaleString();
+                    
+                    // Continue animation if not complete
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    }
+                }
+                
+                requestAnimationFrame(updateCounter);
+            });
+        }
+    }
+    
+    // Check on scroll
+    window.addEventListener('scroll', startCounting);
+    // Check on load
+    window.addEventListener('load', startCounting);
+}
+
+// Initialize counter animation
+animateCounters();
+
 // Form submission
 const contactForm = document.getElementById('contactForm');
 
