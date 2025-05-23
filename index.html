@@ -4,418 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SwiftReport - Financial Reports in 10 Minutes</title>
-    <style>
-        /* CSS Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* CSS Variables for consistent theming */
-        :root {
-            --primary-color: #2563eb;      /* Professional blue */
-            --primary-dark: #1d4ed8;       /* Darker blue for hover states */
-            --secondary-color: #10b981;    /* Success green for CTA */
-            --text-dark: #111827;          /* Dark gray for main text */
-            --text-light: #6b7280;         /* Light gray for secondary text */
-            --bg-light: #f9fafb;           /* Light background */
-            --white: #ffffff;              /* Pure white */
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Purple gradient */
-        }
-
-        /* Base typography and body styles */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            overflow-x: hidden;
-        }
-
-        /* Header Section - Hero area with gradient background */
-        .header {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
-            color: var(--white);
-            padding: 80px 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Animated grid pattern background */
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: float 20s linear infinite;
-            pointer-events: none;
-        }
-
-        /* Floating animation for background pattern */
-        @keyframes float {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-50px, -50px); }
-        }
-
-        /* Container for max-width and centering */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Logo with lightning bolt icon */
-        .logo {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Lightning bolt icon with pulse animation */
-        .logo::before {
-            content: '⚡';
-            font-size: 2rem;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        /* Pulse animation for logo icon */
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.1); }
-        }
-
-        /* Main headline with slide-in animation */
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-            animation: slideInDown 0.8s ease-out;
-        }
-
-        /* Slide down animation for headline */
-        @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Subtitle with fade-in animation */
-        .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-            font-weight: 300;
-            animation: fadeIn 1s ease-out 0.3s both;
-        }
-
-        /* Fade in animation */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 0.9; }
-        }
-
-        /* Call-to-action button with ripple effect */
-        .cta-button {
-            display: inline-block;
-            background: var(--secondary-color);
-            color: var(--white);
-            padding: 18px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-            animation: slideInUp 0.8s ease-out 0.6s both;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Ripple effect on button hover */
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        /* Expand ripple on hover */
-        .cta-button:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        /* Button hover state */
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 25px rgba(16, 185, 129, 0.4);
-        }
-
-        /* Slide up animation */
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Large timer display with glowing effect */
-        .timer-display {
-            margin: 40px 0;
-            font-size: 4rem;
-            font-weight: 800;
-            color: var(--secondary-color);
-            text-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        /* Glowing animation for timer */
-        @keyframes glow {
-            from { text-shadow: 0 0 30px rgba(16, 185, 129, 0.5); }
-            to { text-shadow: 0 0 40px rgba(16, 185, 129, 0.8), 0 0 60px rgba(16, 185, 129, 0.4); }
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 20px;
-            background: var(--bg-light);
-            position: relative;
-        }
-
-        /* Gradient overlay at top of features section */
-        .features::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100px;
-            background: linear-gradient(to bottom, var(--white), transparent);
-            pointer-events: none;
-        }
-
-        /* Grid layout for feature cards */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Individual feature card styling */
-        .feature-card {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Gradient border effect for feature cards */
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: var(--gradient);
-            border-radius: 20px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
-        }
-
-        /* Show gradient border on hover */
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        /* Feature card hover effects */
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-        }
-
-        /* Icon animation on card hover */
-        .feature-card:hover .feature-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        /* Feature icon styling */
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-
-        /* Feature card heading */
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--text-dark);
-        }
-
-        /* Feature card description */
-        .feature-card p {
-            color: var(--text-light);
-            line-height: 1.8;
-        }
-
-        /* Footer Section */
-        .footer {
-            background: var(--text-dark);
-            color: var(--white);
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        /* Footer content container */
-        .footer-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Company name in footer */
-        .company-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        /* Contact email link */
-        .contact-email {
-            color: var(--secondary-color);
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-        }
-
-        /* Email hover state */
-        .contact-email:hover {
-            color: #34d399;
-            text-decoration: underline;
-        }
-
-        /* Responsive Design - Tablet breakpoint */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            .subtitle {
-                font-size: 1.2rem;
-            }
-
-            .timer-display {
-                font-size: 3rem;
-            }
-
-            .cta-button {
-                padding: 15px 30px;
-                font-size: 1.1rem;
-            }
-
-            .features {
-                padding: 60px 20px;
-            }
-
-            .feature-card {
-                padding: 30px;
-            }
-
-            .features-grid {
-                gap: 30px;
-            }
-        }
-
-        /* Responsive Design - Mobile breakpoint */
-        @media (max-width: 480px) {
-            .header {
-                padding: 60px 20px;
-            }
-
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-            }
-
-            .timer-display {
-                font-size: 2.5rem;
-            }
-
-            .logo {
-                font-size: 2rem;
-            }
-        }
-
-        /* Staggered animation for feature cards */
-        .feature-card {
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        /* Delay animations for each card */
-        .feature-card:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .feature-card:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .feature-card:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        /* Fade in and slide up animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">SwiftReport</a>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link">Home</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#" class="nav-cta">Free Trial</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
     <!-- Header Section - Hero area with main value proposition -->
-    <header class="header">
+    <header class="header" id="home">
+        <div class="particles">
+            <!-- Animated particles will be added via JavaScript -->
+        </div>
         <div class="container">
             <!-- Logo with lightning bolt to emphasize speed -->
             <div class="logo">SwiftReport</div>
@@ -430,32 +40,97 @@
             <div class="timer-display">10:00</div>
             
             <!-- Primary call-to-action button -->
-            <a href="#" class="cta-button">Start Your Free Trial</a>
+            <a href="#features" class="cta-button">Start Your Free Trial</a>
         </div>
     </header>
 
     <!-- Features Section - Three key benefits -->
-    <section class="features">
+    <section class="features" id="features">
+        <div class="section-title">Our Powerful Features</div>
+        <p class="section-subtitle">What makes SwiftReport the ultimate choice for financial reporting</p>
         <div class="features-grid">
             <!-- Feature 1: Speed -->
             <div class="feature-card">
-                <div class="feature-icon">🚀</div>
-                <h3>Lightning Fast</h3>
-                <p>Complete comprehensive financial reports in just 10 minutes. Our AI-powered engine processes data 50x faster than traditional tools, giving you more time for strategic analysis.</p>
+                <div class="feature-card-content">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Complete comprehensive financial reports in just 10 minutes. Our AI-powered engine processes data 50x faster than traditional tools, giving you more time for strategic analysis.</p>
+                </div>
             </div>
 
             <!-- Feature 2: Accuracy -->
             <div class="feature-card">
-                <div class="feature-icon">🎯</div>
-                <h3>100% Accurate</h3>
-                <p>Built-in validation and cross-checking ensures zero errors. Automatic compliance with GAAP, IFRS, and SEC standards. Sleep soundly knowing your reports are always correct.</p>
+                <div class="feature-card-content">
+                    <div class="feature-icon">🎯</div>
+                    <h3>100% Accurate</h3>
+                    <p>Built-in validation and cross-checking ensures zero errors. Automatic compliance with GAAP, IFRS, and SEC standards. Sleep soundly knowing your reports are always correct.</p>
+                </div>
             </div>
 
             <!-- Feature 3: Integration -->
             <div class="feature-card">
-                <div class="feature-icon">🔗</div>
-                <h3>Seamless Integration</h3>
-                <p>Connect with QuickBooks, SAP, Oracle, and 100+ other platforms. Import data with one click, export to any format. Works with your existing workflow, not against it.</p>
+                <div class="feature-card-content">
+                    <div class="feature-icon">🔗</div>
+                    <h3>Seamless Integration</h3>
+                    <p>Connect with QuickBooks, SAP, Oracle, and 100+ other platforms. Import data with one click, export to any format. Works with your existing workflow, not against it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-title">Get In Touch</div>
+        <p class="section-subtitle">Have questions or ready to start? Contact our team today.</p>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div class="contact-details">
+                        <h4>Phone</h4>
+                        <p>(555) 123-4567</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-details">
+                        <h4>Email</h4>
+                        <p>hello@swiftreport.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">🏢</div>
+                    <div class="contact-details">
+                        <h4>Office</h4>
+                        <p>123 Finance Street, Suite 456<br>San Francisco, CA 94101</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">⏰</div>
+                    <div class="contact-details">
+                        <h4>Business Hours</h4>
+                        <p>Monday-Friday: 9am - 5pm PST<br>Weekend: Closed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
             </div>
         </div>
     </section>
@@ -464,47 +139,19 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="company-name">SwiftReport Technologies Inc.</div>
-            <p>Ready to revolutionize your financial reporting?</p>
-            <a href="mailto:hello@swiftreport.com" class="contact-email">hello@swiftreport.com</a>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Home</a>
+                <a href="#features" class="footer-link">Features</a>
+                <a href="#contact" class="footer-link">Contact</a>
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Service</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SwiftReport Technologies Inc. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
-    <script>
-        // Timer countdown functionality
-        // Simulates the 10-minute countdown to reinforce the speed promise
-        let minutes = 10;
-        let seconds = 0;
-        const timerDisplay = document.querySelector('.timer-display');
-
-        function updateTimer() {
-            // Decrement seconds
-            seconds--;
-            if (seconds < 0) {
-                seconds = 59;
-                minutes--;
-            }
-            
-            // Reset to 10:00 when timer reaches 0
-            if (minutes < 0) {
-                minutes = 10;
-                seconds = 0;
-            }
-
-            // Format and display time
-            const displayMinutes = minutes.toString().padStart(2, '0');
-            const displaySeconds = seconds.toString().padStart(2, '0');
-            timerDisplay.textContent = `${displayMinutes}:${displaySeconds}`;
-        }
-
-        // Update timer every second
-        setInterval(updateTimer, 1000);
-
-        // Smooth scroll behavior for CTA button
-        // Scrolls to features section when CTA is clicked
-        document.querySelector('.cta-button').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector('.features').scrollIntoView({ behavior: 'smooth' });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
