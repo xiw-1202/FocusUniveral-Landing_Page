@@ -53,27 +53,50 @@ function createParticles() {
     const particles = document.querySelector('.particles');
     if (!particles) return;
     
-    const particleCount = 15;
+    const particleCount = 25; // Increased particle count
     
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
         
-        // Random size between 5-20px
-        const size = Math.random() * 15 + 5;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
+        // Varied particle types
+        const particleType = Math.floor(Math.random() * 3);
+        if (particleType === 0) {
+            // Circle particles
+            const size = Math.random() * 15 + 5;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.borderRadius = '50%';
+            particle.style.background = `rgba(${16 + Math.random() * 20}, ${185 + Math.random() * 30}, ${129 + Math.random() * 30}, ${0.1 + Math.random() * 0.3})`;
+        } else if (particleType === 1) {
+            // Square particles with rotation
+            const size = Math.random() * 12 + 3;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.background = `rgba(255, 255, 255, ${0.05 + Math.random() * 0.1})`;
+            particle.style.transform = `rotate(${Math.random() * 45}deg)`;
+        } else {
+            // Line particles
+            const width = Math.random() * 2 + 1;
+            const height = Math.random() * 30 + 10;
+            particle.style.width = `${width}px`;
+            particle.style.height = `${height}px`;
+            particle.style.background = `rgba(${16 + Math.random() * 20}, ${185 + Math.random() * 30}, ${129 + Math.random() * 30}, ${0.05 + Math.random() * 0.1})`;
+        }
         
         // Random position
         particle.style.left = `${Math.random() * 100}%`;
         
-        // Random duration between 10-20s
-        const duration = Math.random() * 10 + 10;
+        // Random duration between 10-25s
+        const duration = Math.random() * 15 + 10;
         particle.style.animationDuration = `${duration}s`;
         
         // Random delay so they don't all move at once
         const delay = Math.random() * 10;
         particle.style.animationDelay = `${delay}s`;
+        
+        // Random opacity
+        particle.style.opacity = 0.1 + Math.random() * 0.5;
         
         particles.appendChild(particle);
     }
@@ -81,6 +104,38 @@ function createParticles() {
 
 // Initialize particles
 createParticles();
+
+// Add floating effect to highlighted elements
+function addFloatingEffect() {
+    const highlights = document.querySelectorAll('.highlight');
+    
+    highlights.forEach((highlight, index) => {
+        // Add a slight floating animation with different delays
+        highlight.style.animation = `float ${2 + index * 0.5}s ease-in-out infinite alternate`;
+        highlight.style.animationDelay = `${index * 0.2}s`;
+    });
+}
+
+// Call floating effect function
+addFloatingEffect();
+
+// Enhance timer display
+function enhanceTimerDisplay() {
+    const timerDisplay = document.querySelector('.timer-display');
+    if (!timerDisplay) return;
+    
+    // Add a pulsing border effect
+    setInterval(() => {
+        timerDisplay.style.boxShadow = '0 0 30px rgba(16, 185, 129, 0.7)';
+        
+        setTimeout(() => {
+            timerDisplay.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.3)';
+        }, 500);
+    }, 2000);
+}
+
+// Call timer enhancement
+enhanceTimerDisplay();
 
 // Animate brand logos on scroll
 function animateOnScroll() {
