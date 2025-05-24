@@ -100,9 +100,6 @@ FocusUniveral-Landing_Page/
 
 ## 🚀 Deployment
 
-This project is live on GitHub Pages at:
-
-**[https://xiw-1202.github.io/FocusUniveral-Landing_Page/](https://xiw-1202.github.io/FocusUniveral-Landing_Page/)**
 
 To deploy this landing page locally:
 
