@@ -1,6 +1,6 @@
-# SwiftReport Landing Page
+# FocusUniversal Landing Page
 
-A modern, responsive landing page for SwiftReport - a fictional financial reporting tool that promises to deliver comprehensive financial reports in just 10 minutes.
+A modern, responsive landing page for FocusUniversal - a financial reporting tool that promises to deliver comprehensive financial reports in just 10 minutes.
 
 ## 🌐 Live Demo
 
